@@ -1,5 +1,5 @@
-const countryList = document.querySelector('.country-list');
-const countryInfo = document.querySelector('.country-info');
+const countryListEl = document.querySelector('.country-list');
+const countryInfoEl = document.querySelector('.country-info');
 import Notiflix from 'notiflix';
 
 export function fetchCountries(name) {
@@ -17,13 +17,17 @@ export function fetchCountries(name) {
     })
     .then(data => {
       if (data.length > 10) {
+        countryListEl.innerHTML = '';
+        countryInfoEl.innerHTML = '';
         Notiflix.Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
       } else if (data.length > 1 && data.length < 11) {
+        countryInfoEl.innerHTML = '';
         renderCountryList(data);
         console.log(data);
       } else {
+        countryListEl.innerHTML = '';
         renderCountryInfo(data);
         console.log(data);
       }
@@ -43,7 +47,7 @@ function renderCountryList(countries) {
           </li>`;
     })
     .join('');
-  countryList.innerHTML = markup;
+  countryListEl.innerHTML = markup;
 }
 
 function renderCountryInfo(countries) {
@@ -57,5 +61,5 @@ function renderCountryInfo(countries) {
 <p><b>Languages: </b>${Object.values(country.languages)}</p>`;
     })
     .join('');
-  countryInfo.innerHTML = markup;
+  countryInfoEl.innerHTML = markup;
 }
