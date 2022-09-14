@@ -15,6 +15,7 @@ function onInput(event) {
   const nameInput = event.target.value.trim();
   if (nameInput === '') {
     countryInfoEl.innerHTML = '';
+    countryListEl.innerHTML = '';
     return;
   }
   fetchCountries(nameInput)
