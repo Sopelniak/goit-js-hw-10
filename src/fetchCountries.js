@@ -1,25 +1,8 @@
-import './css/styles.css';
-// import fetchCountries from './fetchCountries.js';
-
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 import Notiflix from 'notiflix';
 
-// import debounce from 'lodash.debounce';
-
-// var debounce = require('lodash.debounce');
-const DEBOUNCE_DELAY = 300;
-
-const searchBoxEl = document.querySelector('#search-box');
-
-searchBoxEl.addEventListener('input', onInput);
-
-function onInput(event) {
-  const nameInput = event.currentTarget.value.trim();
-  fetchCountries(nameInput);
-}
-
-function fetchCountries(name) {
+export function fetchCountries(name) {
   if (name === '') {
     return;
   }
