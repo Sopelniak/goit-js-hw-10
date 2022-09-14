@@ -1,38 +1,23 @@
 import './css/styles.css';
-// import fetchCountries from './fetchCountries.js';
+import { fetchCountries } from './fetchCountries.js';
 
+const searchBoxEl = document.querySelector('#search-box');
 const countryListEl = document.querySelector('.country-list');
 const countryInfoEl = document.querySelector('.country-info');
 import Notiflix from 'notiflix';
 
-// import debounce from 'lodash.debounce';
+var debounce = require('lodash.debounce');
+const DEBOUNCE_DELAY = 300;
 
-// var debounce = require('lodash.debounce');
-// var _ = require('lodash');
-// const DEBOUNCE_DELAY = 300;
-
-const searchBoxEl = document.querySelector('#search-box');
-
-searchBoxEl.addEventListener('input', onInput);
+searchBoxEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
 function onInput(event) {
-  const nameInput = event.currentTarget.value.trim();
-  fetchCountries(nameInput);
-}
-
-function fetchCountries(name) {
-  if (name === '') {
+  const nameInput = event.target.value.trim();
+  if (nameInput === '') {
+    countryInfoEl.innerHTML = '';
     return;
   }
-  fetch(
-    `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
-  )
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    })
+  fetchCountries(nameInput)
     .then(data => {
       if (data.length > 10) {
         countryListEl.innerHTML = '';
@@ -43,11 +28,11 @@ function fetchCountries(name) {
       } else if (data.length > 1 && data.length < 11) {
         countryInfoEl.innerHTML = '';
         renderCountryList(data);
-        // console.log(data);
+        console.log(data);
       } else {
         countryListEl.innerHTML = '';
         renderCountryInfo(data);
-        // console.log(data);
+        console.log(data);
       }
     })
     .catch(err => {
