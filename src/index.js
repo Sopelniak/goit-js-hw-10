@@ -8,6 +8,7 @@ import Notiflix from 'notiflix';
 // import debounce from 'lodash.debounce';
 
 // var debounce = require('lodash.debounce');
+// var _ = require('lodash');
 // const DEBOUNCE_DELAY = 300;
 
 const searchBoxEl = document.querySelector('#search-box');
@@ -42,11 +43,11 @@ function fetchCountries(name) {
       } else if (data.length > 1 && data.length < 11) {
         countryInfoEl.innerHTML = '';
         renderCountryList(data);
-        console.log(data);
+        // console.log(data);
       } else {
         countryListEl.innerHTML = '';
         renderCountryInfo(data);
-        console.log(data);
+        // console.log(data);
       }
     })
     .catch(err => {
